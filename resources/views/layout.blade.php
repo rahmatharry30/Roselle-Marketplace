@@ -28,6 +28,7 @@
         <div class="rose-nav-links">
             <a href="{{ route('products.index') }}">Home</a>
             <a href="{{ route('categories.index') }}">Kategori</a>
+            <a href="{{ route('about') }}">Tentang Kami</a>
         </div>
 
         <div class="rose-nav-icons">
@@ -51,9 +52,18 @@
                     </a>
                 @endif
 
+                <a href="{{ route('chat.index') }}" class="rose-icon-link">
+                    <span class="icon">💬</span> Pesan
+                </a>
+
                 <div class="rose-account">
                     <button type="button" class="rose-account-btn" onclick="roseToggleAccountMenu()">
-                        👤 Account
+                        @if (auth()->user()->avatar)
+                            <img src="{{ auth()->user()->avatar_url }}" alt="Avatar" style="width:20px; height:20px; border-radius:50%; object-fit:cover;">
+                        @else
+                            👤
+                        @endif
+                        Account
                     </button>
 
                     <div class="rose-account-menu" id="roseAccountMenu">

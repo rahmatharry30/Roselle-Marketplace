@@ -16,6 +16,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'avatar',
     ];
 
     protected $hidden = [
@@ -39,6 +40,11 @@ class User extends Authenticatable
     public function isBuyer(): bool
     {
         return $this->role === 'buyer';
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        return $this->avatar ? asset('storage/'.$this->avatar) : null;
     }
 
     public function orders()

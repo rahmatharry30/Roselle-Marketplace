@@ -15,9 +15,17 @@
             <p style="color:#15803d; font-size:13px; margin-bottom:15px;">Profil berhasil diperbarui.</p>
         @endif
 
-        <form method="POST" action="{{ route('profile.update') }}" class="rose-form">
+        <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="rose-form">
             @csrf
             @method('PATCH')
+
+            @if ($user->avatar)
+                <img src="{{ $user->avatar_url }}" alt="Avatar" style="width:90px; height:90px; border-radius:50%; object-fit:cover; margin-bottom:15px; display:block;">
+            @endif
+
+            <label>Foto Profil</label>
+            <input type="file" name="avatar" accept="image/*">
+
 
             <label>Nama</label>
             <input type="text" name="name" value="{{ old('name', $user->name) }}" required>

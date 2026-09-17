@@ -54,7 +54,7 @@
                 if (data.status === 'disetujui') {
                     statusText.innerText = 'Pembayaran disetujui! Mengalihkan...';
                     clearInterval(interval);
-                    setTimeout(() => window.location.href = '/orders', 1500);
+                    setTimeout(() => window.location.href = '/orders/{{ $payment->order_id }}?paid=1', 1500);
                 } else if (data.status === 'ditolak') {
                     statusText.innerText = 'Pembayaran ditolak oleh pembeli.';
                     clearInterval(interval);

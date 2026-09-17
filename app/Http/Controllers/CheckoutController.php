@@ -68,6 +68,6 @@ class CheckoutController extends Controller
             return redirect()->route('payments.generate', $order);
         }
 
-        return redirect()->route('orders.show', $order)->with('success', 'Pesanan berhasil dibuat, silakan tunggu konfirmasi COD');
+        return redirect()->route('orders.show', $order)->with('thank_you', true);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
@@ -15,8 +16,12 @@ Route::get('/', function () {
     return redirect()->route('products.index');
 });
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth'])
+    ->middleware('auth')
     ->name('dashboard');
 
 // Profile bawaan Breeze
@@ -58,7 +63,7 @@ Route::get('/pay/confirm/{token}', [PaymentController::class, 'confirmPage'])->n
 Route::post('/pay/confirm/{token}', [PaymentController::class, 'confirm'])->name('payments.doConfirm');
 
 // =====================================================
-// WAJIB LOGIN (buyer & seller) - order, pembayaran, keranjang, checkout, review
+// WAJIB LOGIN (buyer & seller) - order, pembayaran, keranjang, checkout, review, chat
 // =====================================================
 Route::middleware('auth')->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
@@ -76,6 +81,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/checkout', [CheckoutController::class, 'form'])->name('checkout.form');
     Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
+
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::post('/chat/start/{product}', [ChatController::class, 'start'])->name('chat.start');
+    Route::get('/chat/{conversation}', [ChatController::class, 'show'])->name('chat.show');
+    Route::post('/chat/{conversation}/messages', [ChatController::class, 'sendMessage'])->name('chat.send');
+    Route::get('/chat/{conversation}/fetch', [ChatController::class, 'fetchMessages'])->name('chat.fetch');
 });
 
 require __DIR__.'/auth.php';

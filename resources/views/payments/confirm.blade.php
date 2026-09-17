@@ -72,9 +72,32 @@
     </div>
 
     <script>
+        function playTing() {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(1200, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1800, ctx.currentTime + 0.1);
+
+            gain.gain.setValueAtTime(0.3, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + 0.5);
+        }
+
         async function sendConfirm(approved) {
             if (!confirm(approved ? 'Yakin setujui pembayaran ini?' : 'Yakin tolak pembayaran ini?')) {
                 return;
+            }
+
+            if (approved) {
+                playTing();
             }
 
             const url = "{{ route('payments.doConfirm', $payment->qr_token) }}";

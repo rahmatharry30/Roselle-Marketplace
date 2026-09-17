@@ -3,6 +3,16 @@
 @section('title', 'Detail Pesanan')
 
 @section('content')
+        @if (session('thank_you') || request()->query('paid'))
+        <div class="rose-thankyou">
+            <div class="rose-thankyou-icon">🎉</div>
+            <div>
+                <h2 class="rose-thankyou-title">Terima kasih sudah berbelanja!</h2>
+                <p class="rose-thankyou-desc">Pembayaran untuk pesanan #{{ $order->id }} sudah kami terima. Kami akan segera memproses pesananmu.</p>
+            </div>
+        </div>
+    @endif
+
     <h1 class="rose-page-title">Pesanan #{{ $order->id }}</h1>
 
     @php

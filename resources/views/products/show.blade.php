@@ -41,6 +41,11 @@
                         <input type="number" name="quantity" value="1" min="1" max="{{ $product->stock }}">
                         <button type="submit" class="rose-buy-btn">Tambah ke Keranjang</button>
                     </form>
+
+                    <form action="{{ route('chat.start', $product) }}" method="POST" style="margin-top:10px;">
+                        @csrf
+                        <button type="submit" class="rose-btn-outline">💬 Chat dengan Penjual</button>
+                    </form>
                 @endif
             @else
                 <div class="rose-login-notice">

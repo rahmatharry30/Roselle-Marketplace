@@ -6,13 +6,13 @@
     @if (!request()->filled('search') && !request()->filled('category_id'))
         <div class="rose-slider" id="roseSlider">
             <div class="rose-slider-track" id="roseSliderTrack">
-                <a href="{{ route('products.index') }}" class="rose-slide">
+                <a href="{{ route('products.show', 27) }}" class="rose-slide">
                     <img src="{{ asset('images/banner1.jpeg') }}" alt="Banner 1">
                 </a>
-                <a href="{{ route('products.index') }}" class="rose-slide">
+                <a href="{{ route('products.show', 28) }}" class="rose-slide">
                     <img src="{{ asset('images/banner2.jpeg') }}" alt="Banner 2">
                 </a>
-                <a href="{{ route('products.index') }}" class="rose-slide">
+                <a href="{{ route('products.show', 29) }}" class="rose-slide">
                     <img src="{{ asset('images/banner3.jpeg') }}" alt="Banner 3">
                 </a>
             </div>
@@ -41,24 +41,24 @@
         </div>
     @endif
 
-        @if ($bestSellers->count() > 0)
+    @if ($bestSellers->count() > 0)
         <div class="rose-bestseller-section">
             <h2 class="rose-bestseller-title"><span class="spark">✨</span> Best Seller</h2>
             <div class="rose-bestseller-scroll">
-            @foreach ($bestSellers as $bs)
-                <a href="{{ route('products.show', $bs) }}" class="rose-bs-card">
-                    <div class="rose-bs-badge">⭐ Best Seller</div>
-                    @if ($bs->image)
-                        <img src="{{ $bs->image_url }}" alt="{{ $bs->name }}" class="rose-bs-img">
-                    @else
-                        <div class="rose-bs-noimg">Tidak ada gambar</div>
-                    @endif
-                    <div class="rose-bs-body">
-                        <div class="rose-bs-name">{{ $bs->name }}</div>
-                        <div class="rose-bs-price">Rp{{ number_format($bs->price, 0, ',', '.') }}</div>
-                    </div>
-                </a>
-            @endforeach
+                @foreach ($bestSellers as $bs)
+                    <a href="{{ route('products.show', $bs) }}" class="rose-bs-card">
+                        <div class="rose-bs-badge">⭐ Best Seller</div>
+                        @if ($bs->image)
+                            <img src="{{ $bs->image_url }}" alt="{{ $bs->name }}" class="rose-bs-img">
+                        @else
+                            <div class="rose-bs-noimg">Tidak ada gambar</div>
+                        @endif
+                        <div class="rose-bs-body">
+                            <div class="rose-bs-name">{{ $bs->name }}</div>
+                            <div class="rose-bs-price">Rp{{ number_format($bs->price, 0, ',', '.') }}</div>
+                        </div>
+                    </a>
+                @endforeach
             </div>
         </div>
     @endif
@@ -108,7 +108,7 @@
                         @else
                             <span class="count">Belum ada rating</span>
                         @endif
-                            <span class="count" style="margin-left:6px;">· Stok {{ $product->stock }}</span>
+                        <span class="count" style="margin-left:6px;">· Stok {{ $product->stock }}</span>
                     </div>
 
                     <div class="rose-card-actions">
@@ -153,7 +153,7 @@
                     roseDirection = 1;
                 }
                 roseGoToSlide(roseCurrentSlide + roseDirection);
-            }, 2000);
+            }, 4000);
         </script>
     @endif
 @endsection
